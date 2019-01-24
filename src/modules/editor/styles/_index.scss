@@ -1,0 +1,61 @@
+@import "../../../styles/config";
+
+.editor-container{
+    width: 60%;
+    margin-top: 2rem;
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 10px;
+
+    .editor-toolbar{
+        display: flex;
+        flex-wrap: wrap;
+
+        .tool{
+            margin: 0 0.25rem 0.25rem 0;
+            width: 1.5rem;
+            height: 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 3px;
+            background: inherit;
+            position: relative;
+            border: none;
+
+            &:hover, &:focus, &:active{
+                background: rgba(52, 58, 64, 0.15);
+                transition: all 0.3s;
+            }
+
+            .file-input{
+                position: absolute;
+                opacity: 0;
+                width: 100%;
+                overflow: hidden;
+            }
+        }
+    }
+
+    .editor-field{
+        max-height: 60vh;
+        overflow-y: auto;
+
+        img{
+            cursor: pointer;
+        }
+    }
+}
+
+@media only screen and (max-width: $media-large) {
+    .editor-container{
+        width: 75%;
+    }
+}
+
+@media only screen and (max-width: $media-small) {
+    .editor-container {
+        width: 90%;
+        padding: 1.5rem;
+    }
+}

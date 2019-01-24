@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Switch, Route, withRouter } from "react-router-dom";
 
-import HomeComponent from "../modules/home/components/HomeComponent";
+import HomeComponent from "../modules/core/components/HomeComponent";
 
 class App extends Component {
   render() {

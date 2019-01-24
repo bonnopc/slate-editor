@@ -1,1 +1,227 @@
-/* No CSS *//*# sourceMappingURL=index.css.map */
+.main-container {
+  display: -webkit-box;
+  /* OLD - iOS 6-, Safari 3.1-6 */
+  /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox;
+  /* TWEENER - IE 10 */
+  /* NEW - Chrome */
+  display: flex;
+  /* NEW, Spec - Opera 12.1, Firefox 20+ */
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.sidebar-toggler {
+  background: inherit;
+  border: 1px solid rgba(0, 0, 0, 0.17);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0.25rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.sidebar-toggler:focus, .sidebar-toggler:hover {
+  outline: none;
+  background: rgba(0, 0, 0, 0.12);
+}
+
+.navbar {
+  z-index: 11;
+}
+
+.navbar .navbar-nav {
+  width: 12rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.navbar .navbar-nav .nav-item {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  padding: 0 0.5rem;
+}
+
+.sidebar {
+  position: fixed;
+  background: #343a40;
+  height: 100%;
+  left: -100%;
+  width: 14rem;
+  z-index: 10;
+  opacity: 0.01;
+  -webkit-transition: left 0.5s, opacity 0.7s;
+  transition: left 0.5s, opacity 0.7s;
+}
+
+.sidebar.show {
+  opacity: 0.9;
+  left: 0;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+@media only screen and (max-width: 768px) {
+  .sidebar {
+    width: 80%;
+  }
+}
+
+.backdrop {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: #343a40;
+  opacity: 0.25;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.modal-backdrop {
+  background: #343a40;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  opacity: 0.5;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+.modal-content {
+  position: fixed;
+  left: 20%;
+  top: 20%;
+  width: 60vw;
+  border: none;
+  padding: 1rem;
+  max-height: 60vh;
+  z-index: 1050;
+  opacity: 1;
+  -webkit-transition: top 0.5s, opacity 0.3s;
+  transition: top 0.5s, opacity 0.3s;
+}
+
+.form-control {
+  margin-top: 0.5rem;
+}
+
+.form-control:not(.invalid) {
+  margin-bottom: 2rem;
+}
+
+.action-buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-top: 0.5rem;
+}
+
+.cursor-pointer {
+  cursor: pointer !important;
+}
+
+blockquote {
+  opacity: 0.5;
+  padding: 0 2rem;
+}
+
+.editor-container {
+  width: 60%;
+  margin-top: 2rem;
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 10px;
+}
+
+.editor-container .editor-toolbar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.editor-container .editor-toolbar .tool {
+  margin: 0 0.25rem 0.25rem 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 3px;
+  background: inherit;
+  position: relative;
+  border: none;
+}
+
+.editor-container .editor-toolbar .tool:hover, .editor-container .editor-toolbar .tool:focus, .editor-container .editor-toolbar .tool:active {
+  background: rgba(52, 58, 64, 0.15);
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.editor-container .editor-toolbar .tool .file-input {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+.editor-container .editor-field {
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.editor-container .editor-field img {
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 992px) {
+  .editor-container {
+    width: 75%;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .editor-container {
+    width: 90%;
+    padding: 1.5rem;
+  }
+}
+
+body {
+  background: #e6f8fe;
+  color: #343a40;
+  height: 100%;
+  position: fixed;
+  width: 100%;
+}
+/*# sourceMappingURL=index.css.map */
