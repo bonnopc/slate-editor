@@ -4,10 +4,11 @@ import { Value, Block } from 'slate';
 import EditorToolbar from "./EditorToolbar";
 import { toast } from 'react-toastify';
 import SingleInputModal from "../../core/components/SingleInputModal";
+import PropTypes from "prop-types";
 
-const existingValue = JSON.parse(localStorage.getItem('content'))
+// const existingValue = JSON.parse(localStorage.getItem('content'))
 const initialValue = Value.fromJSON(
-    existingValue || {
+    {
         document: {
             nodes: [
                 {
@@ -18,7 +19,7 @@ const initialValue = Value.fromJSON(
                             object: 'text',
                             leaves: [
                                 {
-                                    text: 'A line of text in a paragraph.',
+                                    text: '',
                                 },
                             ],
                         },
@@ -47,23 +48,7 @@ const schema = {
     }
 };
 
-const MarkHotkey = options => {
-    const { type, key } = options
 
-    // Return our "plugin" object, containing the `onKeyDown` handler.
-        return {
-        onKeyDown(event, editor, next) {
-            // If it doesn't match our `key`, let other plugins handle it.
-            if (!event.ctrlKey || event.key !== key) return next()
-
-            // Prevent the default characters from being inserted.
-            event.preventDefault()
-
-            // Toggle the mark `type`.
-            editor.toggleMark(type)
-        },
-    }
-}
 
 const insertImage = (editor, src, target) => {
     if (target) editor.select(target);
@@ -74,14 +59,7 @@ const insertImage = (editor, src, target) => {
     });
 }
 
-// Create an array of plugins.
-const plugins = [
-    MarkHotkey({ key: 'b', type: 'bold' }),
-    MarkHotkey({ key: '`', type: 'code' }),
-    MarkHotkey({ key: 'i', type: 'italic' }),
-    MarkHotkey({ key: '~', type: 'strikethrough' }),
-    MarkHotkey({ key: 'u', type: 'underline' }),
-]
+
 
 const getBase64Data = file => new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -106,18 +84,44 @@ const getBase64Data = file => new Promise((resolve, reject) => {
 });
 
 
-
-
 export default class EditorComponent extends Component {
+    static propTypes = {
+        initialValue: PropTypes.object.isRequired
+    }
+
     state = {
         value: initialValue,
-        isShownImageUrlModal: false
+        isShownImageUrlModal: false,
+        blockLimit: 0,
+        blockCount: 0
+    }
+
+    componentDidMount(){
+        this.setState({ value: this.getValue() }, () => {
+            if(this.editor) {
+                setTimeout(() => {
+                    this.editor.focus()
+                }, 1)
+            }
+        })
+    }
+
+    getValue = () => {
+        let value = initialValue;
+        if(
+            this.props.initialValue &&
+            this.props.initialValue.data
+        ){
+            value = Value.fromJSON(this.props.initialValue.data)
+        }
+        return value;
     }
 
     onChange = ({ value }) => {
         if (value.document !== this.state.value.document) {
-            const content = JSON.stringify(value.toJSON())
-            localStorage.setItem('content', content)
+            this.props.onChangeText(value)
+            // const content = JSON.stringify(value.toJSON())
+            // localStorage.setItem('content', content)
         }
     
         this.setState({ value })
@@ -155,7 +159,9 @@ export default class EditorComponent extends Component {
         }
     
         if (parent) {
-            editor.setBlocks('list-item').wrapBlock(type);
+            editor
+            .setBlocks('list-item')
+            .wrapBlock(type);
         }
     }
 
@@ -298,6 +304,7 @@ export default class EditorComponent extends Component {
 
     renderNode = (props, editor, next) => {
         let { node, attributes, children } = props;
+        // console.log("node", node)
         switch (node.type) {
             case "heading-one":
                 return <h1 {...attributes}>{children}</h1>
@@ -323,9 +330,16 @@ export default class EditorComponent extends Component {
     }
 
     render(){
+        const { blockLimit, handleChangeBlockLimit, plugins, initialValue } = this.props;
         return(
             <Fragment>
+                {
+                    initialValue && initialValue.title ?
+                    <h4>{initialValue.title}</h4> : ""
+                }
                 <EditorToolbar 
+                    blockLimit={blockLimit}
+                    handleChangeBlockLimit={handleChangeBlockLimit}
                     toggleBlock={this.toggleBlock}
                     toggleMark={this.toggleMark}/>
                 <Editor 
@@ -334,6 +348,7 @@ export default class EditorComponent extends Component {
                     autoFocus={true}
                     className="editor-field"
                     value={this.state.value} 
+                    placeholder="Enter text here"
                     onKeyDown={this.onKeyDown}
                     renderMark={this.renderMark}
                     renderNode={this.renderNode}

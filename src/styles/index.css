@@ -53,6 +53,15 @@
   display: -ms-inline-flexbox;
   display: inline-flex;
   padding: 0 0.5rem;
+  cursor: pointer;
+}
+
+.navbar .navbar-nav .nav-item.disabled {
+  cursor: not-allowed;
+}
+
+.navbar .navbar-nav .nav-item.disabled .nav-link {
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .sidebar {
@@ -147,6 +156,15 @@ blockquote {
   padding: 0 2rem;
 }
 
+input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
 .editor-container {
   width: 60%;
   margin-top: 2rem;
@@ -161,6 +179,9 @@ blockquote {
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .editor-container .editor-toolbar .tool {
@@ -195,13 +216,43 @@ blockquote {
   overflow: hidden;
 }
 
+.editor-container .toolbar-text {
+  font-size: 0.8rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  opacity: 0.7;
+}
+
+.editor-container .toolbar-input {
+  height: 2rem;
+}
+
+.editor-container .editor-block-counter {
+  font-size: 0.8rem;
+  text-align: right;
+  opacity: 0.7;
+}
+
+.editor-container .editor-block-counter .limit {
+  color: red;
+}
+
 .editor-container .editor-field {
   max-height: 60vh;
   overflow-y: auto;
+  margin: 1rem 0;
 }
 
 .editor-container .editor-field img {
   cursor: pointer;
+}
+
+.input-sm {
+  width: 3rem;
 }
 
 @media only screen and (max-width: 992px) {

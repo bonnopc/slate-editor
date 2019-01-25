@@ -33,6 +33,15 @@
         .nav-item{
             display: inline-flex;
             padding: 0 0.5rem;
+            cursor: pointer;
+
+            &.disabled{
+                cursor: not-allowed;
+
+                .nav-link{
+                    color: rgba(255,255,255,.5);
+                }
+            }
         }
     }
 }
@@ -112,4 +121,13 @@
 blockquote{
     opacity: 0.5;
     padding: 0 2rem;
+}
+
+input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+ 
+input[type="number"] {
+    -moz-appearance: textfield;
 }

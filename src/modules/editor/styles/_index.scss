@@ -10,6 +10,7 @@
     .editor-toolbar{
         display: flex;
         flex-wrap: wrap;
+        align-items: center;
 
         .tool{
             margin: 0 0.25rem 0.25rem 0;
@@ -37,14 +38,40 @@
         }
     }
 
+    .toolbar-text{
+        font-size: 0.8rem;
+        display: flex;
+        align-items: center;
+        opacity: 0.7;
+    }
+
+    .toolbar-input{
+        height: 2rem;
+    }
+
+    .editor-block-counter{
+        font-size: 0.8rem;
+        text-align: right;
+        opacity: 0.7;
+
+        .limit{
+            color: red;
+        }
+    }
+
     .editor-field{
         max-height: 60vh;
         overflow-y: auto;
+        margin: 1rem 0;
 
         img{
             cursor: pointer;
         }
     }
+}
+
+.input-sm{
+    width: 3rem;
 }
 
 @media only screen and (max-width: $media-large) {
