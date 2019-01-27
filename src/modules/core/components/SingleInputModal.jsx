@@ -39,7 +39,7 @@ export default class SingleInputModal extends Component {
                 <ModalContent>
                     {
                         modalHeader ?
-                        <h5>Pick a name</h5> : ""
+                        <h5>{modalHeader}</h5> : ""
                     }
                     <form 
                         noValidate
