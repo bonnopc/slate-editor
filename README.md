@@ -17,10 +17,10 @@ git clone https://github.com/bonnopc/slate-editor.git
 `
 
 After cloning the repo, open your terminal again and enter
-`
+```
 npm i
 npm start
-` 
+```
 
 ## Features
 This [React app](https://github.com/facebook/create-react-app) have following features:
