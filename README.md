@@ -5,7 +5,7 @@
 This is a rich-text editor, built using extensible Rich Text library [Slate](https://github.com/ianstormtaylor/slate)
 
 ## Live Demo
-Have a look on this [live demo]() 
+Have a look on this [live demo](https://morning-peak-61145.herokuapp.com/) 
 
 ## Installation
 At first clone this repository with SSH or HTTPS
