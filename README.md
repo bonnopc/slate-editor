@@ -1,7 +1,4 @@
-<p align="center">
-    <h1>Text editor</h1>
-    <p>Using Slate</p>
-</>
+# Text Editor with Slate
 
 This is a rich-text editor, built using extensible Rich Text library [Slate](https://github.com/ianstormtaylor/slate)
 
