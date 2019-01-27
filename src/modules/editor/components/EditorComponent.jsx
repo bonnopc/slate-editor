@@ -5,30 +5,32 @@ import EditorToolbar from "./EditorToolbar";
 import { toast } from 'react-toastify';
 import SingleInputModal from "../../core/components/SingleInputModal";
 import PropTypes from "prop-types";
+import _ from "lodash";
+import { InitialData } from "../plugins/InitialData"
 
 // const existingValue = JSON.parse(localStorage.getItem('content'))
-const initialValue = Value.fromJSON(
-    {
-        document: {
-            nodes: [
-                {
-                    object: 'block',
-                    type: 'paragraph',
-                    nodes: [
-                        {
-                            object: 'text',
-                            leaves: [
-                                {
-                                    text: '',
-                                },
-                            ],
-                        },
-                    ],
-                },
-            ],
-        },
-    }
-)
+// const initialValue = Value.fromJSON(
+//     {
+//         document: {
+//             nodes: [
+//                 {
+//                     object: 'block',
+//                     type: 'paragraph',
+//                     nodes: [
+//                         {
+//                             object: 'text',
+//                             leaves: [
+//                                 {
+//                                     text: '',
+//                                 },
+//                             ],
+//                         },
+//                     ],
+//                 },
+//             ],
+//         },
+//     }
+// )
 
 const DEFAULT_NODE = 'paragraph';
 
@@ -90,31 +92,48 @@ export default class EditorComponent extends Component {
     }
 
     state = {
-        value: initialValue,
+        value: InitialData,
         isShownImageUrlModal: false,
         blockLimit: 0,
-        blockCount: 0
+        blockCount: 0,
+        stopUpdatingFromProp: false
     }
 
     componentDidMount(){
-        this.setState({ value: this.getValue() }, () => {
-            if(this.editor) {
-                setTimeout(() => {
-                    this.editor.focus()
-                }, 1)
-            }
-        })
+        this.getValue()
     }
 
-    getValue = () => {
-        let value = initialValue;
+    componentDidUpdate(prevProps){
+        this.getValue(prevProps)
+    }
+
+    getValue = prevProps => {
+        let newValue;
+
         if(
-            this.props.initialValue &&
-            this.props.initialValue.data
+            !this.state.stopUpdatingFromProp &&
+            this.props.initialValue && this.props.initialValue.data
         ){
-            value = Value.fromJSON(this.props.initialValue.data)
+            newValue = Value.fromJSON(this.props.initialValue.data)
+        } else if (
+            prevProps &&
+            prevProps.initialValue &&
+            prevProps.initialValue.id !== this.props.initialValue.id
+        ){
+            newValue = Value.fromJSON(this.props.initialValue.data)
         }
-        return value;
+
+        console.log("getValue", newValue, )
+
+        if(newValue && !_.isEqual(this.state.value.toJSON(),newValue.toJSON())) {
+            this.setState({ value: newValue }, () => this.focusOnEditor())
+        }
+    }
+
+    focusOnEditor = () => {
+        setTimeout(() => {
+            this.editor.focus()
+        }, 50)
     }
 
     onChange = ({ value }) => {
@@ -123,7 +142,7 @@ export default class EditorComponent extends Component {
             // const content = JSON.stringify(value.toJSON())
             // localStorage.setItem('content', content)
         }
-    
+        // this.props.onChangeText(value.toJSON())
         this.setState({ value })
     }
 
@@ -132,6 +151,7 @@ export default class EditorComponent extends Component {
     closeImageUrlModal = () => this.setState({ isShownImageUrlModal: false })
 
     onKeyDown = (event, editor, next) => {
+        if(!this.state.stopUpdatingFromProp) this.setState({ stopUpdatingFromProp: true })
         if(!this.hasBlock("list-item")) return next();
         console.log("evev", event.shiftKey)
 
@@ -143,7 +163,7 @@ export default class EditorComponent extends Component {
         return next();
     }
 
-    hasBlock = type => this.state.value.blocks.some((node) => node.type === type);
+    hasBlock = type => this.state.value.blocks.some(node => node.type === type);
 
     upTabIndentLevel = (event, editor, next) => {
         event.preventDefault();
@@ -250,6 +270,11 @@ export default class EditorComponent extends Component {
                 this.editor.command(insertImage, imageData);
             });
         }
+
+        // save data
+        // if (type === 'save'){
+        //     console.log("save")
+        // }
     
         // list types
         if (type !== 'bulleted-list' && type !== 'numbered-list') {
@@ -304,7 +329,6 @@ export default class EditorComponent extends Component {
 
     renderNode = (props, editor, next) => {
         let { node, attributes, children } = props;
-        // console.log("node", node)
         switch (node.type) {
             case "heading-one":
                 return <h1 {...attributes}>{children}</h1>
@@ -331,17 +355,19 @@ export default class EditorComponent extends Component {
 
     render(){
         const { blockLimit, handleChangeBlockLimit, plugins, initialValue } = this.props;
+        console.log("initialValue", Value.fromJSON(initialValue.data), this.props, this.state)
         return(
             <Fragment>
                 {
                     initialValue && initialValue.title ?
-                    <h4>{initialValue.title}</h4> : ""
+                    <h6>{initialValue.title}</h6> : ""
                 }
                 <EditorToolbar 
                     blockLimit={blockLimit}
                     handleChangeBlockLimit={handleChangeBlockLimit}
                     toggleBlock={this.toggleBlock}
                     toggleMark={this.toggleMark}/>
+                
                 <Editor 
                     ref={node => this.editor = node}
                     plugins={plugins}
@@ -354,6 +380,7 @@ export default class EditorComponent extends Component {
                     renderNode={this.renderNode}
                     schema={schema}
                     onChange={this.onChange} />
+                
                 {
                     this.state.isShownImageUrlModal ?
                         <SingleInputModal

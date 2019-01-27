@@ -87,7 +87,7 @@ export default class EditorToolbar extends Component {
                     </button>
                 </div>
                 <div className="col-md-3 col-12 d-flex justify-content-end">
-                    <div className="toolbar-text">Word limit</div>
+                    <div className="toolbar-text">Block limit</div>
                     <input 
                         value={blockLimit}
                         onChange={handleChangeBlockLimit}

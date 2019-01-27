@@ -22,7 +22,7 @@
   border-radius: 5px;
   cursor: pointer;
   font-size: 1.5rem;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.4);
 }
 
 .sidebar-toggler:focus, .sidebar-toggler:hover {
@@ -35,7 +35,6 @@
 }
 
 .navbar .navbar-nav {
-  width: 12rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -61,19 +60,21 @@
 }
 
 .navbar .navbar-nav .nav-item.disabled .nav-link {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.4);
 }
 
 .sidebar {
   position: fixed;
   background: #343a40;
   height: 100%;
+  overflow-y: auto;
   left: -100%;
   width: 14rem;
   z-index: 10;
   opacity: 0.01;
   -webkit-transition: left 0.5s, opacity 0.7s;
   transition: left 0.5s, opacity 0.7s;
+  color: rgba(255, 255, 255, 0.4);
 }
 
 .sidebar.show {
@@ -83,10 +84,20 @@
   transition: all 0.5s;
 }
 
-@media only screen and (max-width: 768px) {
-  .sidebar {
-    width: 80%;
-  }
+.sidebar .sidebar-item {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.sidebar .sidebar-item .sub-title {
+  font-size: small;
+  opacity: 0.8;
+}
+
+.sidebar .sidebar-item:hover, .sidebar .sidebar-item.active {
+  color: rgba(255, 255, 255, 0.75);
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
 }
 
 .backdrop {
@@ -163,6 +174,19 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 
 input[type="number"] {
   -moz-appearance: textfield;
+}
+
+@media only screen and (max-width: 768px) {
+  .sidebar {
+    width: 80%;
+  }
+  .sidebar .sidebar-item {
+    padding: 1rem 2rem;
+  }
+  .modal-content {
+    left: 5%;
+    width: 90vw;
+  }
 }
 
 .editor-container {
@@ -242,7 +266,7 @@ input[type="number"] {
 }
 
 .editor-container .editor-field {
-  max-height: 60vh;
+  max-height: 55vh;
   overflow-y: auto;
   margin: 1rem 0;
 }
@@ -265,6 +289,9 @@ input[type="number"] {
   .editor-container {
     width: 90%;
     padding: 1.5rem;
+  }
+  .editor-container .editor-field {
+    max-height: 50vh;
   }
 }
 

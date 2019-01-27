@@ -25,7 +25,7 @@
     z-index: 11;
 
     .navbar-nav{
-        width: 12rem;
+        // width: 12rem;
         display: flex;
         flex-direction: row;
         justify-content: flex-end;
@@ -39,7 +39,7 @@
                 cursor: not-allowed;
 
                 .nav-link{
-                    color: rgba(255,255,255,.5);
+                    color: $secondary-font-color;
                 }
             }
         }
@@ -50,22 +50,33 @@
     position: fixed;
     background: $font-color;
     height: 100%;
+    overflow-y: auto;
     left: -100%;
     width: 14rem;
     z-index: 10;
     opacity: 0.01;
     transition: left 0.5s, opacity 0.7s;
+    color: $secondary-font-color;
 
     &.show{
         opacity: 0.9;
         left: 0;
         transition: all 0.5s;
     }
-}
 
-@media only screen and (max-width: $media-small) {
-    .sidebar {
-        width: 80%;
+    .sidebar-item{
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+
+        .sub-title{
+            font-size: small;
+            opacity: 0.8;
+        }
+
+        &:hover, &.active{
+            color: $link-active-color;
+            transition: all 0.3s;
+        }
     }
 }
 
@@ -130,4 +141,19 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
  
 input[type="number"] {
     -moz-appearance: textfield;
+}
+
+@media only screen and (max-width: $media-small) {
+    .sidebar {
+        width: 80%;
+
+        .sidebar-item{
+            padding: 1rem 2rem;
+        }
+    }
+
+    .modal-content {
+        left: 5%;
+        width: 90vw;
+    }
 }

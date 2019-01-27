@@ -16,7 +16,10 @@ export default class SingleInputModal extends Component {
 
     save = event => {
         event.preventDefault();
-        if(this.checkValidity()) this.props.onSave(this.state.value)
+        if(this.checkValidity()) {
+            this.props.onSave(this.state.value)
+            this.setState({ value: "" })
+        }
         else this.setState({ valueValidity: false })
     }
 

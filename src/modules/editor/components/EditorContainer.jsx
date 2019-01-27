@@ -1,12 +1,16 @@
 import React, { Component } from "react";
 import EditorComponent from "./EditorComponent";
 import { BlockCounter, MarkHotkey } from "../plugins/EditorPlugins"
+// import { isEqual } from "../../core/config/helper";
+// import { InitialData } from "../plugins/InitialData";
+// import { Value } from 'slate';
 
 export default class EditorContainer extends Component {
     state = {
         blockLimit: 0,
         blockCount: 0,
-        plugins: []
+        plugins: [],
+        editorComponent: ""
     }
 
     componentDidMount(){
@@ -44,18 +48,25 @@ export default class EditorContainer extends Component {
 
     render(){
         const { blockCount, blockLimit, plugins } = this.state;
+        console.log("EditorContainer", this.props);
+        // const initData = {data: Value.fromJSON(InitialData)}
+
         return(
             <div className="main-container">
                 <div className="editor-container shadow">
-                    <EditorComponent 
-                        plugins={plugins}
-                        initialValue={this.props.initialValue}
-                        blockCount={blockCount}
-                        onChangeBlockCounter={this.onChangeBlockCounter}
-                        onChangeText={value => this.props.onChangeText(value)}
-                        blockLimit={blockLimit}
-                        handleChangeBlockLimit={e => this.handleChangeBlockLimit(e)}
-                         />
+                    {
+                        this.props.initialValue && this.props.initialValue.data ?
+                        <EditorComponent 
+                            {...this.props}
+                            plugins={plugins}
+                            // initialValue={this.props.initialValue}
+                            blockCount={blockCount}
+                            onChangeBlockCounter={this.onChangeBlockCounter}
+                            // onChangeText={value => this.props.onChangeText(value)}
+                            blockLimit={blockLimit}
+                            handleChangeBlockLimit={e => this.handleChangeBlockLimit(e)}
+                            /> : ""
+                    }
                 </div>
             </div>
         )

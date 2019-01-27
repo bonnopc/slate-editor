@@ -60,7 +60,7 @@
     }
 
     .editor-field{
-        max-height: 60vh;
+        max-height: 55vh;
         overflow-y: auto;
         margin: 1rem 0;
 
@@ -84,5 +84,9 @@
     .editor-container {
         width: 90%;
         padding: 1.5rem;
+
+        .editor-field{
+            max-height: 50vh;
+        }
     }
 }

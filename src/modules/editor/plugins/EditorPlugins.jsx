@@ -16,7 +16,7 @@ export const BlockCounter = options => {
             <div>
                 <div>{children}</div>
                 <div className="editor-block-counter">
-                    Word Count: 
+                    Block Count: 
                     <span className={`ml-1 ${limit && blockCount > limit ? "limit" : ""}`}>
                         {blockCount}
                     </span>
