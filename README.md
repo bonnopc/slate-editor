@@ -23,7 +23,7 @@ npm start
 ```
 
 ## Features
-This [React app](https://github.com/facebook/create-react-app) have following features:
+This [React app](https://github.com/facebook/create-react-app) has following features:
 * A toolbar to convert text in rich text format,
 * Upload image files or URLs into text,
 * Make ordered or unordered list or nested list,
