@@ -29,7 +29,8 @@ This [React app](https://github.com/facebook/create-react-app) has following fea
 * Make ordered or unordered list or nested list,
 * Hotkeys to make text **bold**, *italic* or ~~Strikethrough~~,
 * 'Tab' or 'Shift + Tab' to go up or down to a tab indent level,
-* A configurable limit on the number of top-level block nodes in the editor
+* A configurable limit on the number of top-level block nodes in the editor,
+* Stores saved data into your localStorage, and also can retrieve them using an unique ID.
 
 ## Author
 Prosenjit Chowdhury - [bonnopc](https://github.com/bonnopc)
