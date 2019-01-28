@@ -27,7 +27,7 @@ This [React app](https://github.com/facebook/create-react-app) has following fea
 * A toolbar to convert text in rich text format,
 * Upload image files or URLs into text,
 * Make ordered or unordered list or nested list,
-* Hotkeys to make text **bold**, *italic* or ~~Strikethrough~~,
+* Hotkeys to make text bold, underline, italic or strikethrough,
 * 'Tab' or 'Shift + Tab' to go up or down to a tab indent level,
 * A configurable limit on the number of top-level block nodes in the editor,
 * Stores saved data into your localStorage, and also can retrieve them using an unique ID.
